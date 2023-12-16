@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+    <!-- Add your styles here -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            overflow: hidden;
+            padding: 2rem;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+
+        h2 {
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            color: #0056b3;
+        }
+
+        /* Form and Inputs */
+        form {
+            width: 100%;
+            margin-top: 1rem;
+            clear: both;
+        }
+
+        input[type="text"], button {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 0.5rem;
+            border: 2px solid #ddd;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #0056b3;
+        }
+
+        button {
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #eaeaea;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1rem;
+            }
+
+            form {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Admin Page</h1>
+
+    <h2>Add New Doctor</h2>
+    <form th:action="@{/api/addDoctor}" method="post">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="text" name="address" placeholder="Address" required />
+        <input type="text" name="phoneNumber" placeholder="Phone Number" required />
+        <input type="text" name="password" placeholder="Password" required />
+        <input type="text" name="departmentName" placeholder="Department Name" required />
+        <button type="submit">Add Doctor</button>
+    </form>
+
+    <h2>Doctors</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Department</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="doctor : ${doctors}" th:unless="${doctor.isDeleted}">
+            <form th:action="@{/api/doctor}" method="post">
+                <td th:text="${doctor.id}"></td>
+                <td th:text="${doctor.department.name}" /></td>
+                <td><input type="text" th:name="name" th:value="${doctor.name}" /></td>
+                <td><input type="text" th:name="address" th:value="${doctor.address}" /></td>
+                <td><input type="text" th:name="phoneNumber" th:value="${doctor.phoneNumber}" /></td>
+                <td>
+                    <input type="hidden" th:name="id" th:value="${doctor.id}" />
+                    <button type="submit" name="action" value="update">Update</button>
+                    <button type="submit" name="action" value="delete">Delete</button>
+                </td>
+            </form>
+        </tr>
+    </table>
+
+    <br>
+
+    <!-- Add Nurse Form -->
+    <h2>Add New Nurse</h2>
+    <form th:action="@{/api/addNurse}" method="post">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="text" name="address" placeholder="Address" required />
+        <input type="text" name="phoneNumber" placeholder="Phone Number" required />
+        <input type="text" name="password" placeholder="Password" required />
+        <input type="text" name="departmentName" placeholder="Department Name" required />
+        <button type="submit">Add Nurse</button>
+    </form>
+
+    <h2>Nurse</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Department</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="nurse : ${nurses}" th:unless="${nurse.isDeleted}">
+            <form th:action="@{/api/nurse}" method="post">
+                <td th:text="${nurse.id}"></td>
+                <td th:text="${nurse.department.name}" /></td>
+                <td><input type="text" th:name="name" th:value="${nurse.name}" /></td>
+                <td><input type="text" th:name="address" th:value="${nurse.address}" /></td>
+                <td><input type="text" th:name="phoneNumber" th:value="${nurse.phoneNumber}" /></td>
+                <td>
+                    <input type="hidden" th:name="id" th:value="${nurse.id}" />
+                    <button type="submit" name="action" value="update">Update</button>
+                    <button type="submit" name="action" value="delete">Delete</button>
+                </td>
+            </form>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

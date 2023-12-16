@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+      <html lang="en">
+      <head>
+      <meta charset="UTF-8">
+      <title><!DOCTYPE html>
+      <html xmlns:th="http://www.thymeleaf.org">
+      <head>
+      <meta charset="UTF-8">
+      <title>Nurse Page</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      overflow: hidden;
+      padding: 2rem;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #0056b3;
+    }
+
+    h2 {
+      border-bottom: 2px solid #0056b3;
+      padding-bottom: 0.5rem;
+      margin-top: 2rem;
+      color: #0056b3;
+    }
+
+    /* Form and Inputs */
+    form {
+      width: 100%;
+      margin-top: 1rem;
+      clear: both;
+    }
+
+    input[type="text"], button {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border-radius: 0.5rem;
+      border: 2px solid #ddd;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #0056b3;
+    }
+
+    button {
+      background-color: #0056b3;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Table Styles */
+    table {
+      width: 100%;
+      margin-top: 1rem;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f8f8f8;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #eaeaea;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 768px) {
+      .container {
+        width: 95%;
+        padding: 1rem;
+      }
+
+      form {
+        margin-top: 0;
+      }
+    }
+
+  </style>
+  <!-- Add your styles here -->
+</head>
+<body>
+<div class="container">
+  <!-- Add New Reservation Form -->
+  <h2>Add New Reservation</h2>
+  <form th:action="@{/api/addReservation}" method="post">
+    <input type="text" name="departmentName" placeholder="department name" required />
+    <input type="text" name="datetime" placeholder="datetime" required />
+    <button type="submit">Add Reservation</button>
+  </form>
+
+  <!-- Reservations List -->
+  <h2>Reservations</h2>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Department</th>
+      <th>Datetime</th>
+      <th>Actions</th>
+    </tr>
+    <tr th:each="reservation : ${reservations}" th:unless="${reservation.isDeleted}">
+      <form th:action="@{/api/reservation}" method="post">
+        <td th:text="${reservation.id}"></td>
+        <td th:text="${reservation.department.name}"></td>
+        <td th:text="${reservation.datetime}"></td>
+        <td>
+          <input type="hidden" th:name="id" th:value="${reservation.id}" />
+          <button type="submit">Delete</button>
+        </td>
+      </form>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

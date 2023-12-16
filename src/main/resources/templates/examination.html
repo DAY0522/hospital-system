@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Page</title>
+    <!-- Add your styles here -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            overflow: hidden;
+            padding: 2rem;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+
+        h2 {
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            color: #0056b3;
+        }
+
+        /* Form and Inputs */
+        form {
+            width: 100%;
+            margin-top: 1rem;
+            clear: both;
+        }
+
+        input[type="text"], button {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 0.5rem;
+            border: 2px solid #ddd;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #0056b3;
+        }
+
+        button {
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #eaeaea;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1rem;
+            }
+
+            form {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Doctor Page</h1>
+
+    <!-- Search Form -->
+    <h2>Search Patient</h2>
+    <form th:action="@{/api/searchExamination}" method="post">
+        <input type="text" th:name="patientName" placeholder="Enter patient name" required />
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Search Results -->
+    <h2>Search Results</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Detail</th>
+            <th>Datetime</th>
+        </tr>
+        <tr th:each="result : ${searchResults}">
+            <td th:text="${result.id}"></td>
+            <td th:text="${result.patient.name}"></td>
+            <td th:text="${result.detail}"></td>
+            <td th:text="${result.datetime}"></td>
+        </tr>
+    </table>
+
+    <!-- Add New Examination Form -->
+    <h2>Add New Examination</h2>
+    <form th:action="@{/api/addExamination}" method="post">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="text" name="detail" placeholder="Detail" required />
+        <button type="submit">Add Examination</button>
+    </form>
+
+    <!-- Examinations List -->
+    <h2>Examinations</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Detail</th>
+            <th>Datetime</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="examination : ${examinations}" th:unless="${examination.isDeleted}">
+            <form th:action="@{/api/examination}" method="post">
+                <td th:text="${examination.id}"></td>
+                <td th:text="${examination.patient.name}"></td>
+                <td><input type="text" th:name="detail" th:value="${examination.detail}" /></td>
+                <td><input type="text" th:name="datetime" th:value="${examination.datetime}" /></td>
+                <td>
+                    <input type="hidden" th:name="id" th:value="${examination.id}" />
+                    <button type="submit" name="action" value="update">Update</button>
+                    <button type="submit" name="action" value="delete">Delete</button>
+                </td>
+            </form>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
