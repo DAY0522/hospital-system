@@ -39,16 +39,10 @@ public class Patient {
     private String password;
 
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "doctor_id", referencedColumnName = "id"),
-            @JoinColumn(name = "doctor_department_id", referencedColumnName = "department_id")
-    })
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "nurse_id", referencedColumnName = "id"),
-            @JoinColumn(name = "nurse_department_id", referencedColumnName = "department_id")
-    })
+    @JoinColumn(name = "nurse_id")
     private Nurse nurse;
 }

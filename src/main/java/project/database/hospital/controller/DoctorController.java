@@ -63,13 +63,12 @@ public class DoctorController {
 
     @PostMapping("/api/addExamination")
     public String addExamination(
-            @RequestParam("name") String name,
+            @RequestParam("id") Integer id,
             @RequestParam("detail") String detail,
             HttpServletRequest request) {
 
-        System.out.printf("name: %s, detail: %s\n", name, detail);
         LoginMember loginMember = (LoginMember) request.getSession().getAttribute("loginMember");
-        examinationService.addExamination(loginMember.getId(), name, detail);
+        examinationService.addExamination(loginMember.getId(), id, detail);
 
         return "redirect:/doctor";
     }

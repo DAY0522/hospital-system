@@ -45,9 +45,9 @@ public class ExaminationService {
     }
 
     @Transactional(readOnly = false)
-    public void addExamination(Integer doctorId, String name, String detail){
+    public void addExamination(Integer doctorId, Integer id, String detail){
 
-        Patient patient = patientRepository.findByName(name).orElseThrow(
+        Patient patient = patientRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 환자가 없습니다.")
         );
 

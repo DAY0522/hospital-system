@@ -25,10 +25,7 @@ public class Examination {
     private Boolean isDeleted;
 
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "doctor_id", referencedColumnName = "id", nullable = false),
-            @JoinColumn(name = "doctor_department_id", referencedColumnName = "department_id", nullable = false)
-    })
+    @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
     @ManyToOne

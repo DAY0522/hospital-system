@@ -19,6 +19,6 @@ public class Inpatient {
     private LocalDateTime dischargeDatetime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 }

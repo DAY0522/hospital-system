@@ -123,19 +123,19 @@
     <table>
         <tr>
             <th>ID</th>
-            <th>Department</th>
             <th>Name</th>
             <th>Address</th>
             <th>Phone Number</th>
+            <th>Department</th>
             <th>Actions</th>
         </tr>
         <tr th:each="doctor : ${doctors}" th:unless="${doctor.isDeleted}">
             <form th:action="@{/api/doctor}" method="post">
                 <td th:text="${doctor.id}"></td>
-                <td th:text="${doctor.department.name}" /></td>
                 <td><input type="text" th:name="name" th:value="${doctor.name}" /></td>
                 <td><input type="text" th:name="address" th:value="${doctor.address}" /></td>
                 <td><input type="text" th:name="phoneNumber" th:value="${doctor.phoneNumber}" /></td>
+                <td><input type="text" th:name="departmentName" th:value="${doctor.department.name}" /></td>
                 <td>
                     <input type="hidden" th:name="id" th:value="${doctor.id}" />
                     <button type="submit" name="action" value="update">Update</button>
@@ -162,19 +162,19 @@
     <table>
         <tr>
             <th>ID</th>
-            <th>Department</th>
             <th>Name</th>
             <th>Address</th>
             <th>Phone Number</th>
+            <th>Department</th>
             <th>Actions</th>
         </tr>
         <tr th:each="nurse : ${nurses}" th:unless="${nurse.isDeleted}">
             <form th:action="@{/api/nurse}" method="post">
                 <td th:text="${nurse.id}"></td>
-                <td th:text="${nurse.department.name}" /></td>
                 <td><input type="text" th:name="name" th:value="${nurse.name}" /></td>
                 <td><input type="text" th:name="address" th:value="${nurse.address}" /></td>
                 <td><input type="text" th:name="phoneNumber" th:value="${nurse.phoneNumber}" /></td>
+                <td><input type="text" th:name="departmentName" th:value="${nurse.department.name}" /></td>
                 <td>
                     <input type="hidden" th:name="id" th:value="${nurse.id}" />
                     <button type="submit" name="action" value="update">Update</button>

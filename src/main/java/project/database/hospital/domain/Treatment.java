@@ -25,14 +25,11 @@ public class Treatment {
     private Boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumns({
-            @JoinColumn(name = "nurse_id", referencedColumnName = "id", nullable = false),
-            @JoinColumn(name = "nurse_department_id", referencedColumnName = "department_id", nullable = false)
-    })
+    @JoinColumn(name = "nurse_id", nullable = false)
     private Nurse nurse;
 
     @Builder
