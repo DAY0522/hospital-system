@@ -36,5 +36,5 @@
 - `/api/addReservation`: 새로운 예약을 추가하는 기능입니다.
 - `/api/reservation`: 예약을 취소하는 기능입니다.
 
-### ERD
-![hospital-system-erd](https://github.com/DAY0522/hospital-system/assets/79097171/895a8b2c-6df1-4fec-9bb3-17dca1c10d9e)
+## ERD
+<img src="https://github.com/DAY0522/hospital-system/assets/79097171/895a8b2c-6df1-4fec-9bb3-17dca1c10d9e" width="800">
